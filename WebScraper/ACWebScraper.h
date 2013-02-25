@@ -19,21 +19,64 @@ typedef enum _ACWebScraperState {
 
 @class ACWebScraper;
 
+/** _ACWebScraperDelegate_ is the delegate for _ACWebScraper_.
+ */
 @protocol ACWebScraperDelegate <NSObject>
 @optional
+/** _ACWebScraper_ is ready with state. See _ACWebScraper_'s _state_ property for states description.
+ */
 - (void)webScraper:(ACWebScraper*)webScraper isReadyWithState:(ACWebScraperState)state;
+
+/** _ACWebScraper_ has evaluated the javascript code and return its returned value
+ */
 - (void)webScraper:(ACWebScraper*)webScraper didEvaluate:(NSString*)evaluation withResult:(NSString*)result;
 @end
 
 
+
+/** _ACWebScraper_ is a web scraper for iOS.
+ */
 @interface ACWebScraper : NSObject <UIWebViewDelegate>
+
+/** @name Properties */
+
+/** The webscaper delegate.
+ */
 @property (nonatomic, weak) id<ACWebScraperDelegate> delegate;
+
+/** The UIWebView used for the web scraping.
+ */
 @property (nonatomic, readonly, strong) UIWebView *webview;
+
+/** The current state of the webscraper.
+ *
+ * Can be one of:
+ * - _ACWebScraperStateNull_, web page not loaded yet
+ * - _ACWebScraperStateWebViewLoaded_, UIWebView is done loading
+ * - _ACWebScraperStateDOMReady_, DOM is ready but all content may not yet be loaded
+ * - _ACWebScraperStateDOMLoaded_, DOM ready and its content was loaded
+ */
 @property (nonatomic, readonly, assign) ACWebScraperState state;
 
+
+/** @name Opening a web page */
+
+/** Open an URL.
+ */
 - (void)openURL:(NSURL*)url;
+
+/** @name Loading and evaluating code */
+
+/** Load javascript code in the page. Do not return anything.
+ */
 - (void)load:(NSString*)evaluation;
+
+/** Evaluate javascript code. Return value is returned to the _ACWebScraperDelegate_'s _webScraper:didEvaluate:withResult:_ .
+ */
 - (void)evaluate:(NSString*)evaluation;
+
+/** Evaluate javascript code after some javascript condition is met. Return value is returned to the _ACWebScraperDelegate_'s _webScraper:didEvaluate:withResult:_ .
+ */
 - (void)evaluate:(NSString*)evaluation when:(NSString*)when;
 
 @end

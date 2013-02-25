@@ -10,8 +10,16 @@
 
 @interface UIWebView (Document)
 
+/** Return the URL from the document
+ */
 - (NSURL*)URL;
+
+/** Return the title from the document
+ */
 - (NSString*)title;
+
+/** Return the first h1 from the document
+ */
 - (NSString*)h1;
 
 @end

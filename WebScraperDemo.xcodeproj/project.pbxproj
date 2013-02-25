@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		51045E3D16DAFB4300A53DB1 /* WebScraperDocumentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 51045E3E16DAFB4300A53DB1 /* Build configuration list for PBXAggregateTarget "WebScraperDocumentation" */;
+			buildPhases = (
+				51045E4116DAFB4D00A53DB1 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = WebScraperDocumentation;
+			productName = WebScraperDocumentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		51045DF116DAF40800A53DB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF016DAF40800A53DB1 /* UIKit.framework */; };
 		51045DF316DAF40800A53DB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF216DAF40800A53DB1 /* Foundation.framework */; };
@@ -67,6 +81,7 @@
 		51045E3216DAF43900A53DB1 /* NSString+Javascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Javascript.m"; sourceTree = "<group>"; };
 		51045E3316DAF43900A53DB1 /* UIWebView+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Document.h"; sourceTree = "<group>"; };
 		51045E3416DAF43900A53DB1 /* UIWebView+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Document.m"; sourceTree = "<group>"; };
+		51045E3C16DAFAB600A53DB1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +111,7 @@
 		51045DE416DAF40800A53DB1 = {
 			isa = PBXGroup;
 			children = (
+				51045E3C16DAFAB600A53DB1 /* README.md */,
 				51045E2E16DAF41E00A53DB1 /* WebScraper */,
 				51045DF616DAF40800A53DB1 /* WebScraperDemo */,
 				51045E1D16DAF40900A53DB1 /* WebScraperDemoTests */,
@@ -246,6 +262,7 @@
 			targets = (
 				51045DEC16DAF40800A53DB1 /* WebScraperDemo */,
 				51045E1516DAF40900A53DB1 /* WebScraperDemoTests */,
+				51045E3D16DAFB4300A53DB1 /* WebScraperDocumentation */,
 			);
 		};
 /* End PBXProject section */
@@ -286,6 +303,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		51045E4116DAFB4D00A53DB1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/appledoc \\\n--project-name \"ACWebScraper\" \\\n--project-company \"acoomans\" \\\n--company-id \"com.acoomans\" \\\n--output build \\\n--create-docset \\\n--install-docset \\\n--create-html \\\n--exit-threshold 2 \\\n--no-repeat-first-par \\\nWebScraper";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -465,6 +495,20 @@
 			};
 			name = Release;
 		};
+		51045E3F16DAFB4300A53DB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		51045E4016DAFB4300A53DB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -490,6 +534,14 @@
 			buildConfigurations = (
 				51045E2C16DAF40900A53DB1 /* Debug */,
 				51045E2D16DAF40900A53DB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		51045E3E16DAFB4300A53DB1 /* Build configuration list for PBXAggregateTarget "WebScraperDocumentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51045E3F16DAFB4300A53DB1 /* Debug */,
+				51045E4016DAFB4300A53DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
