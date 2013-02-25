@@ -14,8 +14,8 @@ Open an URL:
 
     [self.webScraper openURL:[NSURL URLWithString:@"http://news.ycombinator.com/"]];
 
-When the scraper is ready, it will call the delegate's _webScraper:isReadyWithState:_ .
-There you can evaluate some javascript code with _evaluate:_ :
+When the scraper is ready, it will call the delegate's _webScraper:isReadyWithState:_
+There you can evaluate some javascript code with _evaluate:_
 
     - (void)webScraper:(ACWebScraper*)webScraper isReadyWithState:(ACWebScraperState)state {
         if (state != ACWebScraperStateDOMLoaded) return;
@@ -26,7 +26,7 @@ There you can evaluate some javascript code with _evaluate:_ :
         }
     }
 
-If you have to wait for something, you can use _evaluate:when:_ :
+If you have to wait for something, you can use _evaluate:when:_
 
     [self.webScraper evaluate:@"return document.getElementsByTagName('a')[9].innerHTML" 
                          when:@"return (document.getElementsByTagName('a')) ? true : false)";];
