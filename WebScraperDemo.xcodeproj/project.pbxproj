@@ -17,13 +17,15 @@
 		51045E0516DAF40800A53DB1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51045E0416DAF40800A53DB1 /* Default@2x.png */; };
 		51045E0716DAF40800A53DB1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51045E0616DAF40800A53DB1 /* Default-568h@2x.png */; };
 		51045E0A16DAF40800A53DB1 /* ACViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E0916DAF40800A53DB1 /* ACViewController.m */; };
-		51045E0D16DAF40800A53DB1 /* ACViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51045E0B16DAF40800A53DB1 /* ACViewController_iPhone.xib */; };
-		51045E1016DAF40800A53DB1 /* ACViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51045E0E16DAF40800A53DB1 /* ACViewController_iPad.xib */; };
+		51045E0D16DAF40800A53DB1 /* ACViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51045E0B16DAF40800A53DB1 /* ACViewController.xib */; };
 		51045E1816DAF40900A53DB1 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045E1716DAF40900A53DB1 /* SenTestingKit.framework */; };
 		51045E1916DAF40900A53DB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF016DAF40800A53DB1 /* UIKit.framework */; };
 		51045E1A16DAF40900A53DB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF216DAF40800A53DB1 /* Foundation.framework */; };
 		51045E2216DAF40900A53DB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51045E2016DAF40900A53DB1 /* InfoPlist.strings */; };
 		51045E2516DAF40900A53DB1 /* WebScraperDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E2416DAF40900A53DB1 /* WebScraperDemoTests.m */; };
+		51045E3916DAF78700A53DB1 /* ACWebScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3016DAF43900A53DB1 /* ACWebScraper.m */; };
+		51045E3A16DAF78B00A53DB1 /* NSString+Javascript.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3216DAF43900A53DB1 /* NSString+Javascript.m */; };
+		51045E3B16DAF79000A53DB1 /* UIWebView+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3416DAF43900A53DB1 /* UIWebView+Document.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,14 +54,19 @@
 		51045E0616DAF40800A53DB1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		51045E0816DAF40800A53DB1 /* ACViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACViewController.h; sourceTree = "<group>"; };
 		51045E0916DAF40800A53DB1 /* ACViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACViewController.m; sourceTree = "<group>"; };
-		51045E0C16DAF40800A53DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ACViewController_iPhone.xib; sourceTree = "<group>"; };
-		51045E0F16DAF40800A53DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ACViewController_iPad.xib; sourceTree = "<group>"; };
+		51045E0C16DAF40800A53DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ACViewController.xib; sourceTree = "<group>"; };
 		51045E1616DAF40900A53DB1 /* WebScraperDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebScraperDemoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51045E1716DAF40900A53DB1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		51045E1F16DAF40900A53DB1 /* WebScraperDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WebScraperDemoTests-Info.plist"; sourceTree = "<group>"; };
 		51045E2116DAF40900A53DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		51045E2316DAF40900A53DB1 /* WebScraperDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebScraperDemoTests.h; sourceTree = "<group>"; };
 		51045E2416DAF40900A53DB1 /* WebScraperDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebScraperDemoTests.m; sourceTree = "<group>"; };
+		51045E2F16DAF43900A53DB1 /* ACWebScraper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScraper.h; sourceTree = "<group>"; };
+		51045E3016DAF43900A53DB1 /* ACWebScraper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScraper.m; sourceTree = "<group>"; };
+		51045E3116DAF43900A53DB1 /* NSString+Javascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Javascript.h"; sourceTree = "<group>"; };
+		51045E3216DAF43900A53DB1 /* NSString+Javascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Javascript.m"; sourceTree = "<group>"; };
+		51045E3316DAF43900A53DB1 /* UIWebView+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Document.h"; sourceTree = "<group>"; };
+		51045E3416DAF43900A53DB1 /* UIWebView+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Document.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +96,7 @@
 		51045DE416DAF40800A53DB1 = {
 			isa = PBXGroup;
 			children = (
+				51045E2E16DAF41E00A53DB1 /* WebScraper */,
 				51045DF616DAF40800A53DB1 /* WebScraperDemo */,
 				51045E1D16DAF40900A53DB1 /* WebScraperDemoTests */,
 				51045DEF16DAF40800A53DB1 /* Frameworks */,
@@ -123,8 +131,7 @@
 				51045E0016DAF40800A53DB1 /* ACAppDelegate.m */,
 				51045E0816DAF40800A53DB1 /* ACViewController.h */,
 				51045E0916DAF40800A53DB1 /* ACViewController.m */,
-				51045E0B16DAF40800A53DB1 /* ACViewController_iPhone.xib */,
-				51045E0E16DAF40800A53DB1 /* ACViewController_iPad.xib */,
+				51045E0B16DAF40800A53DB1 /* ACViewController.xib */,
 				51045DF716DAF40800A53DB1 /* Supporting Files */,
 			);
 			path = WebScraperDemo;
@@ -161,6 +168,19 @@
 				51045E2016DAF40900A53DB1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		51045E2E16DAF41E00A53DB1 /* WebScraper */ = {
+			isa = PBXGroup;
+			children = (
+				51045E2F16DAF43900A53DB1 /* ACWebScraper.h */,
+				51045E3016DAF43900A53DB1 /* ACWebScraper.m */,
+				51045E3116DAF43900A53DB1 /* NSString+Javascript.h */,
+				51045E3216DAF43900A53DB1 /* NSString+Javascript.m */,
+				51045E3316DAF43900A53DB1 /* UIWebView+Document.h */,
+				51045E3416DAF43900A53DB1 /* UIWebView+Document.m */,
+			);
+			path = WebScraper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +259,7 @@
 				51045E0316DAF40800A53DB1 /* Default.png in Resources */,
 				51045E0516DAF40800A53DB1 /* Default@2x.png in Resources */,
 				51045E0716DAF40800A53DB1 /* Default-568h@2x.png in Resources */,
-				51045E0D16DAF40800A53DB1 /* ACViewController_iPhone.xib in Resources */,
-				51045E1016DAF40800A53DB1 /* ACViewController_iPad.xib in Resources */,
+				51045E0D16DAF40800A53DB1 /* ACViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +297,9 @@
 				51045DFD16DAF40800A53DB1 /* main.m in Sources */,
 				51045E0116DAF40800A53DB1 /* ACAppDelegate.m in Sources */,
 				51045E0A16DAF40800A53DB1 /* ACViewController.m in Sources */,
+				51045E3916DAF78700A53DB1 /* ACWebScraper.m in Sources */,
+				51045E3A16DAF78B00A53DB1 /* NSString+Javascript.m in Sources */,
+				51045E3B16DAF79000A53DB1 /* UIWebView+Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,20 +330,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		51045E0B16DAF40800A53DB1 /* ACViewController_iPhone.xib */ = {
+		51045E0B16DAF40800A53DB1 /* ACViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				51045E0C16DAF40800A53DB1 /* en */,
 			);
-			name = ACViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		51045E0E16DAF40800A53DB1 /* ACViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				51045E0F16DAF40800A53DB1 /* en */,
-			);
-			name = ACViewController_iPad.xib;
+			name = ACViewController.xib;
 			sourceTree = "<group>";
 		};
 		51045E2016DAF40900A53DB1 /* InfoPlist.strings */ = {
@@ -400,6 +414,7 @@
 				GCC_PREFIX_HEADER = "WebScraperDemo/WebScraperDemo-Prefix.pch";
 				INFOPLIST_FILE = "WebScraperDemo/WebScraperDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -411,6 +426,7 @@
 				GCC_PREFIX_HEADER = "WebScraperDemo/WebScraperDemo-Prefix.pch";
 				INFOPLIST_FILE = "WebScraperDemo/WebScraperDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
