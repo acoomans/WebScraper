@@ -36,10 +36,10 @@
 		51045E1916DAF40900A53DB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF016DAF40800A53DB1 /* UIKit.framework */; };
 		51045E1A16DAF40900A53DB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51045DF216DAF40800A53DB1 /* Foundation.framework */; };
 		51045E2216DAF40900A53DB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 51045E2016DAF40900A53DB1 /* InfoPlist.strings */; };
-		51045E2516DAF40900A53DB1 /* WebScraperDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E2416DAF40900A53DB1 /* WebScraperDemoTests.m */; };
 		51045E3916DAF78700A53DB1 /* ACWebScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3016DAF43900A53DB1 /* ACWebScraper.m */; };
 		51045E3A16DAF78B00A53DB1 /* NSString+Javascript.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3216DAF43900A53DB1 /* NSString+Javascript.m */; };
 		51045E3B16DAF79000A53DB1 /* UIWebView+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3416DAF43900A53DB1 /* UIWebView+Document.m */; };
+		51D0898C16DC742D00826084 /* ACWebScraperQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D0898B16DC742D00826084 /* ACWebScraperQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +73,6 @@
 		51045E1716DAF40900A53DB1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		51045E1F16DAF40900A53DB1 /* WebScraperDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WebScraperDemoTests-Info.plist"; sourceTree = "<group>"; };
 		51045E2116DAF40900A53DB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		51045E2316DAF40900A53DB1 /* WebScraperDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebScraperDemoTests.h; sourceTree = "<group>"; };
-		51045E2416DAF40900A53DB1 /* WebScraperDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebScraperDemoTests.m; sourceTree = "<group>"; };
 		51045E2F16DAF43900A53DB1 /* ACWebScraper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScraper.h; sourceTree = "<group>"; };
 		51045E3016DAF43900A53DB1 /* ACWebScraper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScraper.m; sourceTree = "<group>"; };
 		51045E3116DAF43900A53DB1 /* NSString+Javascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Javascript.h"; sourceTree = "<group>"; };
@@ -82,6 +80,8 @@
 		51045E3316DAF43900A53DB1 /* UIWebView+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Document.h"; sourceTree = "<group>"; };
 		51045E3416DAF43900A53DB1 /* UIWebView+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Document.m"; sourceTree = "<group>"; };
 		51045E3C16DAFAB600A53DB1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		51D0898A16DC742D00826084 /* ACWebScraperQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScraperQueue.h; sourceTree = "<group>"; };
+		51D0898B16DC742D00826084 /* ACWebScraperQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScraperQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,8 +170,6 @@
 		51045E1D16DAF40900A53DB1 /* WebScraperDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				51045E2316DAF40900A53DB1 /* WebScraperDemoTests.h */,
-				51045E2416DAF40900A53DB1 /* WebScraperDemoTests.m */,
 				51045E1E16DAF40900A53DB1 /* Supporting Files */,
 			);
 			path = WebScraperDemoTests;
@@ -191,6 +189,8 @@
 			children = (
 				51045E2F16DAF43900A53DB1 /* ACWebScraper.h */,
 				51045E3016DAF43900A53DB1 /* ACWebScraper.m */,
+				51D0898A16DC742D00826084 /* ACWebScraperQueue.h */,
+				51D0898B16DC742D00826084 /* ACWebScraperQueue.m */,
 				51045E3116DAF43900A53DB1 /* NSString+Javascript.h */,
 				51045E3216DAF43900A53DB1 /* NSString+Javascript.m */,
 				51045E3316DAF43900A53DB1 /* UIWebView+Document.h */,
@@ -330,6 +330,7 @@
 				51045E3916DAF78700A53DB1 /* ACWebScraper.m in Sources */,
 				51045E3A16DAF78B00A53DB1 /* NSString+Javascript.m in Sources */,
 				51045E3B16DAF79000A53DB1 /* UIWebView+Document.m in Sources */,
+				51D0898C16DC742D00826084 /* ACWebScraperQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51045E2516DAF40900A53DB1 /* WebScraperDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +528,7 @@
 				51045E2A16DAF40900A53DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		51045E2B16DAF40900A53DB1 /* Build configuration list for PBXNativeTarget "WebScraperDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +537,7 @@
 				51045E2D16DAF40900A53DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		51045E3E16DAFB4300A53DB1 /* Build configuration list for PBXAggregateTarget "WebScraperDocumentation" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +546,7 @@
 				51045E4016DAFB4300A53DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

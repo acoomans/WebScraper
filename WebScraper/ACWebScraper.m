@@ -12,11 +12,12 @@
 NSString* const ACEvaluateDomReadyScript = @"if (/loaded|complete/.test(document.readyState)) {document.UIWebViewIsDomReady = true;} else {document.addEventListener('DOMContentLoaded', function(){document.UIWebViewIsDomReady = true;}, false);}";
 NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(document.readyState)){document.UIWebViewIsDomLoaded = true;} else {window.addEventListener('load',               function(){document.UIWebViewIsDomLoaded = true;}, false);}";
 
-
+NSInteger const kACWebScraperWhenCountMax = 5;
 
 @interface ACWebScraper ()
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) ACWebScraperState state;
+@property (nonatomic, assign) NSInteger whenCount;
 - (void)evaluateWhen:(NSDictionary*)e;
 @end
 
@@ -42,10 +43,12 @@ NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(docume
 }
 
 - (void)load:(NSString*)evaluation {
+    if (!evaluation) return;
     [self.webview stringByEvaluatingJavaScriptFromString:evaluation];
 }
 
 - (void)evaluate:(NSString*)evaluation {
+    NSLog(@"WebScraper: evaluating");
     NSString *result = [self.webview stringByEvaluatingJavaScriptFromString:[evaluation wrapInFunction]];
     if ([self.delegate respondsToSelector:@selector(webScraper:didEvaluate:withResult:)]) {
         [self.delegate webScraper:self didEvaluate:evaluation withResult:result];
@@ -53,7 +56,12 @@ NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(docume
 }
 
 - (void)evaluate:(NSString*)evaluation when:(NSString*)when {
-    [self evaluateWhen:@{@"evaluation":evaluation, @"when":when}];
+    self.whenCount = 0;
+    if (!when) {
+        [self evaluate:evaluation];
+    } else {
+        [self evaluateWhen:@{@"evaluation":evaluation, @"when":when}];
+    }
 }
 
 - (void)evaluateWhen:(NSDictionary*)e { // wrapper for performSelector
@@ -62,7 +70,13 @@ NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(docume
     if ([@"true" caseInsensitiveCompare:[self.webview stringByEvaluatingJavaScriptFromString:[when wrapInFunction]]] == NSOrderedSame) {
         [self evaluate:evaluation];
     } else {
-        [self performSelector:@selector(evaluateWhen:) withObject:e afterDelay:1];
+        if (self.whenCount < kACWebScraperWhenCountMax) {
+            NSLog(@"WebScraper: waiting to evaluate...");
+            self.whenCount++;
+            [self performSelector:@selector(evaluateWhen:) withObject:e afterDelay:1];
+        } else {
+            NSLog(@"WebScraper: waited for too long, stopped. ");
+        }
     }
 }
 

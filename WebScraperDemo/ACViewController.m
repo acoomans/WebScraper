@@ -10,39 +10,44 @@
 
 @interface ACViewController ()
 @property (nonatomic, strong) ACWebScraper *webScraper;
+@property (nonatomic, strong) ACWebScraperQueue *webScraperQueue;
 @end
 
 @implementation ACViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.webScraper = [[ACWebScraper alloc] init];
-    self.webScraper.delegate = self;
+
+    self.webScraperQueue = [[ACWebScraperQueue alloc] init];
+    self.webScraperQueue.delegate = self;
     
     // let's add the webview to this controller's view so we can see what's happening; only for debugging
-    [self.view addSubview:self.webScraper.webview];
-    self.webScraper.webview.frame = self.view.bounds;
+    [self.view addSubview:self.webScraperQueue.webScraper.webview];
+    self.webScraperQueue.webScraper.webview.frame = self.view.bounds;
     
-    [self.webScraper openURL:[NSURL URLWithString:@"http://news.ycombinator.com/"]];
+    self.webScraperQueue.libraries = [@[
+                                      @"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+                                       ] mutableCopy];
+    
+    self.webScraperQueue.evaluationsQueue = [@[
+                                             @[
+                                                @"document.getElementsByTagName('a')[11].click();",
+                                                @"return (document.getElementsByTagName('a')[11] ? true : false);"
+                                             ],
+                                             @[
+                                                @"return $('span.comment font')[0].innerHTML",
+                                                @"return (document.URL.substring(0, 36) == 'http://news.ycombinator.com/item?id=' ? true : false);"
+                                             ],
+                                             
+                                              ] mutableCopy];
+    
+    [self.webScraperQueue startScrapingAtURL:[NSURL URLWithString:@"http://news.ycombinator.com/"]];
 }
 
 #pragma mark - ACWebScraperDelegate
 
-- (void)webScraper:(ACWebScraper*)webScraper isReadyWithState:(ACWebScraperState)state {
-    if (state != ACWebScraperStateDOMLoaded) return;
-    
-    if ([webScraper.webview.URL.absoluteString isEqualToString:@"http://news.ycombinator.com/"]) {
-        [self.webScraper evaluate:@"return document.getElementsByTagName('a')[9].innerHTML"];
-        [self.webScraper evaluate:@"document.getElementsByTagName('a')[9].click()"];
-    }
+- (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result {
+     NSLog(@"result = %@", result);
 }
-
-- (void)webScraper:(ACWebScraper*)webScraper didEvaluate:(NSString*)evaluation withResult:(NSString*)result {
-    NSLog(@"------------");
-    NSLog(@"%@", evaluation);
-    NSLog(@"result = %@", result);
-}
-
 
 @end
