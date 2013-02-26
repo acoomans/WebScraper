@@ -36,7 +36,7 @@
                                              ],
                                              @[
                                                 @"return $('span.comment font')[0].innerHTML",
-                                                @"return (document.URL.substring(0, 36) == 'http://news.ycombinator.com/item?id=' ? true : false);"
+                                                @"return ((typeof jQuery != 'undefined') && document.URL.substring(0, 36) == 'http://news.ycombinator.com/item?id=' ? true : false);"
                                              ],
                                              
                                               ] mutableCopy];
