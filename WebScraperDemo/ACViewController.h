@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ACWebScraperQueue.h"
+#import "ACWebScrapingClient.h"
 
-@interface ACViewController : UIViewController <ACWebScraperQueueDelegate>
+@interface ACViewController : UIViewController
 
 @end

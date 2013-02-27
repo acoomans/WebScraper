@@ -19,6 +19,7 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 @property (nonatomic, assign) ACWebScraperState state;
 @property (nonatomic, assign) NSInteger whenCount;
 - (void)evaluateWhen:(NSDictionary*)e;
+- (NSString*)stringByEvaluatingJavaScriptFromString:(NSString*)evaluation;
 @end
 
 @implementation ACWebScraper
@@ -26,9 +27,15 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 - (id)init {
     self = [super init];
     if (self) {
-        // Initialization code here.
-        self.webview = [[UIWebView alloc] init];
-        self.webview.delegate = self;
+        if ([NSThread isMainThread]) {
+            self.webview = [[UIWebView alloc] init];
+            self.webview.delegate = self;
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.webview = [[UIWebView alloc] init];
+                self.webview.delegate = self;
+            });
+        }
         self.state = ACWebScraperStateNull;
     }
     return self;
@@ -37,6 +44,19 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 
 #pragma mark - 
 
+- (NSString*)stringByEvaluatingJavaScriptFromString:(NSString*)evaluation {
+    NSLog(@"WebScraper: stringByEvaluatingJavaScriptFromString");
+    __block NSString *result = nil;
+    if ([NSThread isMainThread]) {
+        result = [self.webview stringByEvaluatingJavaScriptFromString:evaluation];
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            result = [self.webview stringByEvaluatingJavaScriptFromString:evaluation];
+        });
+    }
+    return result;
+}
+
 - (void)openURL:(NSURL*)url {
     self.state = ACWebScraperStateNull;
     [self.webview loadRequest:[NSURLRequest requestWithURL:url]];
@@ -44,12 +64,13 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 
 - (void)load:(NSString*)evaluation {
     if (!evaluation) return;
-    [self.webview stringByEvaluatingJavaScriptFromString:evaluation];
+    [self stringByEvaluatingJavaScriptFromString:evaluation];
 }
 
 - (void)evaluate:(NSString*)evaluation {
     NSLog(@"WebScraper: evaluating");
-    NSString *result = [self.webview stringByEvaluatingJavaScriptFromString:[evaluation wrapInFunction]];
+    
+    NSString *result = [self stringByEvaluatingJavaScriptFromString:evaluation];
     if ([self.delegate respondsToSelector:@selector(webScraper:didEvaluate:withResult:)]) {
         [self.delegate webScraper:self didEvaluate:evaluation withResult:result];
     }
@@ -67,7 +88,10 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 - (void)evaluateWhen:(NSDictionary*)e { // wrapper for performSelector
     NSString *evaluation = e[@"evaluation"];
     NSString *when = e[@"when"];
-    if ([@"true" caseInsensitiveCompare:[self.webview stringByEvaluatingJavaScriptFromString:[when wrapInFunction]]] == NSOrderedSame) {
+    
+    NSString *whenResult = [self stringByEvaluatingJavaScriptFromString:[when wrapInFunction]];
+    
+    if ([@"true" caseInsensitiveCompare:whenResult] == NSOrderedSame) {
         [self evaluate:evaluation];
     } else {
         if (self.whenCount < kACWebScraperWhenCountMax) {
@@ -86,19 +110,19 @@ NSInteger const kACWebScraperWhenCountMax = 5;
     
     [self documentReadyWithState:ACWebScraperStateWebViewLoaded];
     
-    [webView stringByEvaluatingJavaScriptFromString:ACEvaluateDomReadyScript];
-    [webView stringByEvaluatingJavaScriptFromString:ACEvaluateDomLoadedScript];
+    [self stringByEvaluatingJavaScriptFromString:ACEvaluateDomReadyScript];
+    [self stringByEvaluatingJavaScriptFromString:ACEvaluateDomLoadedScript];
     [self pollState];
 }
 
 #pragma mark - document state
 
 - (void)pollState {
-    if ([@"true" caseInsensitiveCompare:[self.webview stringByEvaluatingJavaScriptFromString:@"document.UIWebViewIsDomReady"]] == NSOrderedSame) {
+    if ([@"true" caseInsensitiveCompare:[self stringByEvaluatingJavaScriptFromString:@"document.UIWebViewIsDomReady"]] == NSOrderedSame) {
         [self documentReadyWithState:ACWebScraperStateDOMReady];
     }
     
-    if ([@"true" caseInsensitiveCompare:[self.webview stringByEvaluatingJavaScriptFromString:@"document.UIWebViewIsDomLoaded"]] == NSOrderedSame) {
+    if ([@"true" caseInsensitiveCompare:[self stringByEvaluatingJavaScriptFromString:@"document.UIWebViewIsDomLoaded"]] == NSOrderedSame) {
         [self documentReadyWithState:ACWebScraperStateDOMLoaded];
     }
     
