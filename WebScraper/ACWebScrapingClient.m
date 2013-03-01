@@ -25,10 +25,9 @@
      evaluations:(NSMutableArray*)evaluations
             done:(void (^)(NSString*result))done {
     
-    
     ACWebScrapingOperation *webScrapingOperation = [[ACWebScrapingOperation alloc] initWithURL:url
                                                                                      libraries:libraries
-                                                                              evaluationsQueue:evaluations
+                                                                                   evaluations:evaluations
                                                                                           done:done];
     [self.operationQueue addOperation:webScrapingOperation];
     return webScrapingOperation;

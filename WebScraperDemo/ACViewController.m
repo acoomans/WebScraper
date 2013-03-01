@@ -39,10 +39,9 @@
                          NSLog(@"result = %@", result);
                      }];
     
+    // let's add the webview to this controller's view so we can see what's happening; only for debugging
     [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
     webScrapingOperation.webScraperQueue.webScraper.webview.frame = self.view.bounds;
-    
-    NSLog(@"webview = %@", webScrapingOperation.webScraperQueue.webScraper.webview);
 }
 
 @end

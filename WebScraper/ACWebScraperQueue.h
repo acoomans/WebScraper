@@ -15,7 +15,7 @@
  */
 @protocol ACWebScraperQueueDelegate <NSObject>
 @optional
-/** _ACWebScraperQueue_ has run the whole queue and evaluated the javascript code and returns the return value of the last evaluation
+/** _ACWebScraperQueue_ has evaluated all javascript codes in the queue and returns the return value of the last evaluation.
  */
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result;
 @end
@@ -61,6 +61,7 @@
 - (void)startScraping;
 
 /** Start Scraping from page at given URL
+ * @param url URL to start scraping at
  */
 - (void)startScrapingAtURL:(NSURL*)url;
 

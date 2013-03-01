@@ -17,15 +17,15 @@
 - (id)init {
     self = [self initWithURL:nil
                    libraries:nil
-            evaluationsQueue:nil
+                 evaluations:nil
                         done:nil];
     return self;
 }
 
 - (id)initWithURL:(NSURL*)url
         libraries:(NSMutableArray*)libraries
- evaluationsQueue:(NSMutableArray*)evaluationsQueue
-done:(void (^)(NSString*result))done
+      evaluations:(NSMutableArray*)evaluations
+             done:(void (^)(NSString*result))done
 {
     self = [super init];
     if (self) {
@@ -35,7 +35,7 @@ done:(void (^)(NSString*result))done
         
         self.url = url;
         self.libraries = libraries;
-        self.evaluationsQueue = evaluationsQueue;
+        self.evaluationsQueue = evaluations;
         
         self.isExecuting = NO;
         self.isFinished = NO;

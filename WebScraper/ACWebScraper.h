@@ -68,14 +68,18 @@ typedef enum _ACWebScraperState {
 /** @name Loading and evaluating code */
 
 /** Load javascript code in the page. Do not return anything.
+ * @param evaluation javascript code to evaluate. 
  */
 - (void)load:(NSString*)evaluation;
 
 /** Evaluate javascript code. Return value is returned to the _ACWebScraperDelegate_'s _webScraper:didEvaluate:withResult:_ .
+ * @param evaluation javascript code to evaluate
  */
 - (void)evaluate:(NSString*)evaluation;
 
 /** Evaluate javascript code after some javascript condition is met. Return value is returned to the _ACWebScraperDelegate_'s _webScraper:didEvaluate:withResult:_ .
+ * @param evaluation javascript code to evaluate
+ * @param when javascript condition that if returns true, _evaluation_ will be evaluated
  */
 - (void)evaluate:(NSString*)evaluation when:(NSString*)when;
 
