@@ -7,6 +7,7 @@
 //
 
 #import "ACViewController.h"
+#import "ACWebScrapingOperation.h"
 
 @interface ACViewController ()
 @property (nonatomic, strong) ACWebScrapingClient *client;
@@ -19,6 +20,7 @@
     
     self.client = [[ACWebScrapingClient alloc] init];
     
+    ACWebScrapingOperation *webScrapingOperation =
     [self.client scrapURL:[NSURL URLWithString:@"http://news.ycombinator.com/"]
                 libraries:[@[
                            @"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
@@ -36,6 +38,11 @@
                      done:^(NSString *result) {
                          NSLog(@"result = %@", result);
                      }];
+    
+    [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
+    webScrapingOperation.webScraperQueue.webScraper.webview.frame = self.view.bounds;
+    
+    NSLog(@"webview = %@", webScrapingOperation.webScraperQueue.webScraper.webview);
 }
 
 @end

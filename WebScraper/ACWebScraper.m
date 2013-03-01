@@ -12,7 +12,7 @@
 NSString* const ACEvaluateDomReadyScript = @"if (/loaded|complete/.test(document.readyState)) {document.UIWebViewIsDomReady = true;} else {document.addEventListener('DOMContentLoaded', function(){document.UIWebViewIsDomReady = true;}, false);}";
 NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(document.readyState)){document.UIWebViewIsDomLoaded = true;} else {window.addEventListener('load',               function(){document.UIWebViewIsDomLoaded = true;}, false);}";
 
-NSInteger const kACWebScraperWhenCountMax = 5;
+NSInteger const kACWebScraperWhenCountMax = 10;
 
 @interface ACWebScraper ()
 @property (nonatomic, strong) UIWebView *webview;
@@ -31,9 +31,11 @@ NSInteger const kACWebScraperWhenCountMax = 5;
             self.webview = [[UIWebView alloc] init];
             self.webview.delegate = self;
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.webview = [[UIWebView alloc] init];
-                self.webview.delegate = self;
+            
+            __block __weak ACWebScraper *this = self;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                this.webview = [[UIWebView alloc] init];
+                this.webview.delegate = self;
             });
         }
         self.state = ACWebScraperStateNull;
@@ -45,7 +47,6 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 #pragma mark - 
 
 - (NSString*)stringByEvaluatingJavaScriptFromString:(NSString*)evaluation {
-    NSLog(@"WebScraper: stringByEvaluatingJavaScriptFromString");
     __block NSString *result = nil;
     if ([NSThread isMainThread]) {
         result = [self.webview stringByEvaluatingJavaScriptFromString:evaluation];
@@ -68,9 +69,9 @@ NSInteger const kACWebScraperWhenCountMax = 5;
 }
 
 - (void)evaluate:(NSString*)evaluation {
-    NSLog(@"WebScraper: evaluating");
+    NSLog(@"WebScraper: evaluate");
     
-    NSString *result = [self stringByEvaluatingJavaScriptFromString:evaluation];
+    NSString *result = [self stringByEvaluatingJavaScriptFromString:[evaluation wrapInFunction]];
     if ([self.delegate respondsToSelector:@selector(webScraper:didEvaluate:withResult:)]) {
         [self.delegate webScraper:self didEvaluate:evaluation withResult:result];
     }
@@ -97,7 +98,11 @@ NSInteger const kACWebScraperWhenCountMax = 5;
         if (self.whenCount < kACWebScraperWhenCountMax) {
             NSLog(@"WebScraper: waiting to evaluate...");
             self.whenCount++;
-            [self performSelector:@selector(evaluateWhen:) withObject:e afterDelay:1];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                [self evaluateWhen:e];
+            });
+ //           [self performSelectorOnMainThread:@selector(evaluateWhen:) withObject:e waitUntilDone:YES];
         } else {
             NSLog(@"WebScraper: waited for too long, stopped. ");
         }

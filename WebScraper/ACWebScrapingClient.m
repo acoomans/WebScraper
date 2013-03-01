@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)scrapURL:(NSURL*)url
+- (ACWebScrapingOperation*)scrapURL:(NSURL*)url
        libraries:(NSMutableArray*)libraries
      evaluations:(NSMutableArray*)evaluations
             done:(void (^)(NSString*result))done {
@@ -31,6 +31,7 @@
                                                                               evaluationsQueue:evaluations
                                                                                           done:done];
     [self.operationQueue addOperation:webScrapingOperation];
+    return webScrapingOperation;
 }
 
 @end

@@ -29,22 +29,23 @@ done:(void (^)(NSString*result))done
 {
     self = [super init];
     if (self) {
-        self.isExecuting = NO;
-        self.isFinished = NO;
-        self.done = done;
+        
+        self.webScraperQueue = [[ACWebScraperQueue alloc] init];
+        self.webScraperQueue.delegate = self;
         
         self.url = url;
         self.libraries = libraries;
         self.evaluationsQueue = evaluationsQueue;
         
+        self.isExecuting = NO;
+        self.isFinished = NO;
+        self.done = done;
     }
     return self;
 }
 - (void)start {
     self.isExecuting = YES;
     
-    self.webScraperQueue = [[ACWebScraperQueue alloc] init];
-    self.webScraperQueue.delegate = self;
     self.webScraperQueue.libraries = self.libraries;
     self.webScraperQueue.evaluationsQueue = self.evaluationsQueue;
     
@@ -58,7 +59,6 @@ done:(void (^)(NSString*result))done
 #pragma mark - ACWebScraperDelegate
 
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result {
-    NSLog(@"result = %@", result);
     if (self.done) {
         self.done(result);
     }

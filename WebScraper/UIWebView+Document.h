@@ -22,4 +22,6 @@
  */
 - (NSString*)h1;
 
+- (NSString*)body;
+
 @end

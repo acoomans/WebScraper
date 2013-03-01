@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ACWebScrapingOperation.h"
 
 @interface ACWebScrapingClient : NSObject
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
-- (void)scrapURL:(NSURL*)url
+- (ACWebScrapingOperation*)scrapURL:(NSURL*)url
      libraries:(NSMutableArray*)libraries
    evaluations:(NSMutableArray*)evaluations
           done:(void (^)(NSString*result))done;

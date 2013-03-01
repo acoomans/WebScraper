@@ -24,4 +24,8 @@
     return [self stringByEvaluatingJavaScriptFromString:[@"return document.querySelectorAll('h1')[0]" wrapInFunction]];
 }
 
+- (NSString*)body {
+    return [self stringByEvaluatingJavaScriptFromString:[@"return document.innerHTML" wrapInFunction]];
+}
+
 @end
