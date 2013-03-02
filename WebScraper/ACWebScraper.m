@@ -17,7 +17,7 @@ NSInteger const kACWebScraperWhenCountMax = 10;
 @interface ACWebScraper ()
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) ACWebScraperState state;
-@property (nonatomic, assign) NSInteger whenCount;
+@property (nonatomic, assign) NSInteger currentWhenCount;
 - (void)evaluateWhen:(NSDictionary*)e;
 - (NSString*)stringByEvaluatingJavaScriptFromString:(NSString*)evaluation;
 @end
@@ -39,6 +39,7 @@ NSInteger const kACWebScraperWhenCountMax = 10;
             });
         }
         self.state = ACWebScraperStateNull;
+        self.whenCount = kACWebScraperWhenCountMax;
     }
     return self;
 }
@@ -78,7 +79,7 @@ NSInteger const kACWebScraperWhenCountMax = 10;
 }
 
 - (void)evaluate:(NSString*)evaluation when:(id)when {
-    self.whenCount = 0;
+    self.currentWhenCount = 0;
     if (!when) {
         [self evaluate:evaluation];
     } else {
@@ -95,11 +96,11 @@ NSInteger const kACWebScraperWhenCountMax = 10;
         if ([@"true" caseInsensitiveCompare:whenResult] == NSOrderedSame) {
             [self evaluate:evaluation];
         } else {
-            if (self.whenCount < kACWebScraperWhenCountMax) {
+            if (self.currentWhenCount < self.whenCount) {
                 NSLog(@"WebScraper: waiting to evaluate...");
-                self.whenCount++;
+                self.currentWhenCount++;
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                     [self evaluateWhen:e];
                 });
             } else {

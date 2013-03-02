@@ -48,6 +48,10 @@ typedef enum _ACWebScraperState {
  */
 @property (nonatomic, readonly, strong) UIWebView *webview;
 
+/** The number of seconds to wait for when to become true (if when is javascript condition) before failing
+ */
+@property (nonatomic, assign) NSInteger whenCount;
+
 /** The current state of the webscraper.
  *
  * Can be one of:
