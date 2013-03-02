@@ -77,7 +77,7 @@ NSInteger const kACWebScraperWhenCountMax = 10;
     }
 }
 
-- (void)evaluate:(NSString*)evaluation when:(NSString*)when {
+- (void)evaluate:(NSString*)evaluation when:(id)when {
     self.whenCount = 0;
     if (!when) {
         [self evaluate:evaluation];
@@ -88,24 +88,29 @@ NSInteger const kACWebScraperWhenCountMax = 10;
 
 - (void)evaluateWhen:(NSDictionary*)e { // wrapper for performSelector
     NSString *evaluation = e[@"evaluation"];
-    NSString *when = e[@"when"];
+    id when = e[@"when"];
     
-    NSString *whenResult = [self stringByEvaluatingJavaScriptFromString:[when wrapInFunction]];
-    
-    if ([@"true" caseInsensitiveCompare:whenResult] == NSOrderedSame) {
-        [self evaluate:evaluation];
-    } else {
-        if (self.whenCount < kACWebScraperWhenCountMax) {
-            NSLog(@"WebScraper: waiting to evaluate...");
-            self.whenCount++;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                [self evaluateWhen:e];
-            });
- //           [self performSelectorOnMainThread:@selector(evaluateWhen:) withObject:e waitUntilDone:YES];
+    if ([when isKindOfClass:[NSString class]]) {
+        NSString *whenResult = [self stringByEvaluatingJavaScriptFromString:[when wrapInFunction]];
+        if ([@"true" caseInsensitiveCompare:whenResult] == NSOrderedSame) {
+            [self evaluate:evaluation];
         } else {
-            NSLog(@"WebScraper: waited for too long, stopped. ");
+            if (self.whenCount < kACWebScraperWhenCountMax) {
+                NSLog(@"WebScraper: waiting to evaluate...");
+                self.whenCount++;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    [self evaluateWhen:e];
+                });
+            } else {
+                NSLog(@"WebScraper: waited for too long, stopped. ");
+            }
         }
+    } else if ([when isKindOfClass:[NSNumber class]]) {
+        NSLog(@"WebScraper: waiting %@ seconds to evaluate...", when);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, ([when floatValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [self evaluate:evaluation];
+        });
     }
 }
 

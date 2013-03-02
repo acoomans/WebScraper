@@ -38,7 +38,8 @@
  * - a _NSArray_ containing _evaluation_ and _when_ at position 0 and 1 respectively
  * - a _NSDictionary_ containing _evaluation_ and _when_ with keys @"evaluation" and @"when" respectively
  *
- * _evaluation_ and _when_ correspond to the javascript code to be evaluated and to a javascript condition.
+ * _evaluation_ is the javascript code to be evaluated.
+ * _when_ is a javascript condition or number of seconds.
  * See _ACWebScraper_'s _evaluate:when:_.
  */
 @property (nonatomic, strong) NSMutableArray *evaluationsQueue;

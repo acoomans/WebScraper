@@ -79,8 +79,8 @@ typedef enum _ACWebScraperState {
 
 /** Evaluate javascript code after some javascript condition is met. Return value is returned to the _ACWebScraperDelegate_'s _webScraper:didEvaluate:withResult:_ .
  * @param evaluation javascript code to evaluate
- * @param when javascript condition that if returns true, _evaluation_ will be evaluated
+ * @param when _NSString_ with javascript condition that if returns true, _evaluation_ will be evaluated; or a _NSNumber_ with seconds before _evaluation_ will be evaluated
  */
-- (void)evaluate:(NSString*)evaluation when:(NSString*)when;
+- (void)evaluate:(NSString*)evaluation when:(id)when;
 
 @end
