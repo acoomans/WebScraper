@@ -24,8 +24,8 @@
  * @param done the block to be called when all evaluations have been evaluated, _result_ is the result of the last evaluation
  */
 - (ACWebScrapingOperation*)scrapURL:(NSURL*)url
-     libraries:(NSMutableArray*)libraries
-   evaluations:(NSMutableArray*)evaluations
+     libraries:(NSArray*)libraries
+   evaluations:(NSArray*)evaluations
           done:(void (^)(NSString*result))done;
 
 @end

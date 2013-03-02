@@ -41,7 +41,9 @@
 }
 
 - (void)loadLibraries {
+    if (!self.libraries) return;
     NSString *l = nil;
+    self.libraries = [self.libraries mutableCopy];
     [self.libraries insertObject:@"function loadjs(f){var r=document.createElement('script');r.type='text/javascript';r.src=f;document.getElementsByTagName('head')[0].appendChild(r)};" atIndex:0];
     for (NSString *library in self.libraries) {
         if ([library hasPrefix:@"http"]) {

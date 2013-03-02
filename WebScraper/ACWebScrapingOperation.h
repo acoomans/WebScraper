@@ -29,11 +29,11 @@
 
 /** An array of libraries to inject in each scraped page; can be javascript code or an URL.
  */
-@property (nonatomic, strong) NSMutableArray *libraries;
+@property (nonatomic, strong) NSArray *libraries;
 
 /** An array of javascripts to evaluate, one at a time.
  */
-@property (nonatomic, strong) NSMutableArray *evaluationsQueue;
+@property (nonatomic, strong) NSArray *evaluationsQueue;
 
 /** The block to be called when all evaluations have been evaluated, _result_ is the result of the last evaluation.
  */
@@ -48,8 +48,8 @@
  * @param done the block to be called when all evaluations have been evaluated, _result_ is the result of the last evaluation
  */
 - (id)initWithURL:(NSURL*)url
-        libraries:(NSMutableArray*)libraries
-      evaluations:(NSMutableArray*)evaluations
+        libraries:(NSArray*)libraries
+      evaluations:(NSArray*)evaluations
              done:(void (^)(NSString*result))done;
 
 @end

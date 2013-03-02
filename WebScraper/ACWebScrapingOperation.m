@@ -23,8 +23,8 @@
 }
 
 - (id)initWithURL:(NSURL*)url
-        libraries:(NSMutableArray*)libraries
-      evaluations:(NSMutableArray*)evaluations
+        libraries:(NSArray*)libraries
+      evaluations:(NSArray*)evaluations
              done:(void (^)(NSString*result))done
 {
     self = [super init];
@@ -46,8 +46,8 @@
 - (void)start {
     self.isExecuting = YES;
     
-    self.webScraperQueue.libraries = self.libraries;
-    self.webScraperQueue.evaluationsQueue = self.evaluationsQueue;
+    self.webScraperQueue.libraries = [self.libraries mutableCopy];
+    self.webScraperQueue.evaluationsQueue = [self.evaluationsQueue mutableCopy];
     
     [self.webScraperQueue startScrapingAtURL:self.url];
 }

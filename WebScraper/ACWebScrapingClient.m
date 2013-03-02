@@ -21,8 +21,8 @@
 }
 
 - (ACWebScrapingOperation*)scrapURL:(NSURL*)url
-       libraries:(NSMutableArray*)libraries
-     evaluations:(NSMutableArray*)evaluations
+       libraries:(NSArray*)libraries
+     evaluations:(NSArray*)evaluations
             done:(void (^)(NSString*result))done {
     
     ACWebScrapingOperation *webScrapingOperation = [[ACWebScrapingOperation alloc] initWithURL:url
