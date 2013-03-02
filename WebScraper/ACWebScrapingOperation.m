@@ -8,6 +8,10 @@
 
 #import "ACWebScrapingOperation.h"
 
+NSString * const ACWebScrapingOperationDidStartNotification = @"ACWebScrapingOperationDidStartNotification";
+NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOperationDidFinishNotification";
+
+
 @interface ACWebScrapingOperation ()
 
 @end
@@ -50,6 +54,8 @@
     self.webScraperQueue.evaluationsQueue = [self.evaluationsQueue mutableCopy];
     
     [self.webScraperQueue startScrapingAtURL:self.url];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ACWebScrapingOperationDidStartNotification object:self userInfo:nil];
 }
 
 - (BOOL)isConcurrent {
@@ -59,11 +65,14 @@
 #pragma mark - ACWebScraperDelegate
 
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result {
+    self.isExecuting = NO;
+    self.isFinished = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ACWebScrapingOperationDidFinishNotification object:self userInfo:nil];
+    
     if (self.done) {
         self.done(result);
     }
-    self.isExecuting = NO;
-    self.isFinished = YES;
 }
 
 

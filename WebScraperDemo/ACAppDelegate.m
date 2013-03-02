@@ -7,13 +7,16 @@
 //
 
 #import "ACAppDelegate.h"
-
 #import "ACViewController.h"
+#import "ACWebScrapingActivityIndicatorManager.h"
 
 @implementation ACAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[ACWebScrapingActivityIndicatorManager sharedManager] setEnabled:YES];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.viewController = [[ACViewController alloc] initWithNibName:@"ACViewController" bundle:nil];
     self.window.rootViewController = self.viewController;

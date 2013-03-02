@@ -39,6 +39,7 @@
 		51045E3916DAF78700A53DB1 /* ACWebScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3016DAF43900A53DB1 /* ACWebScraper.m */; };
 		51045E3A16DAF78B00A53DB1 /* NSString+Javascript.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3216DAF43900A53DB1 /* NSString+Javascript.m */; };
 		51045E3B16DAF79000A53DB1 /* UIWebView+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 51045E3416DAF43900A53DB1 /* UIWebView+Document.m */; };
+		5120A5FE16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120A5FD16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m */; };
 		51B3738616DDC18700F25636 /* ACWebScrapingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B3738516DDC18700F25636 /* ACWebScrapingClient.m */; };
 		51B3738916DDC33F00F25636 /* ACWebScrapingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B3738816DDC33F00F25636 /* ACWebScrapingOperation.m */; };
 		51D0898C16DC742D00826084 /* ACWebScraperQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D0898B16DC742D00826084 /* ACWebScraperQueue.m */; };
@@ -82,6 +83,8 @@
 		51045E3316DAF43900A53DB1 /* UIWebView+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Document.h"; sourceTree = "<group>"; };
 		51045E3416DAF43900A53DB1 /* UIWebView+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Document.m"; sourceTree = "<group>"; };
 		51045E3C16DAFAB600A53DB1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		5120A5FC16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingActivityIndicatorManager.h; sourceTree = "<group>"; };
+		5120A5FD16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScrapingActivityIndicatorManager.m; sourceTree = "<group>"; };
 		51B3738416DDC18700F25636 /* ACWebScrapingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingClient.h; sourceTree = "<group>"; };
 		51B3738516DDC18700F25636 /* ACWebScrapingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScrapingClient.m; sourceTree = "<group>"; };
 		51B3738716DDC33F00F25636 /* ACWebScrapingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingOperation.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				51B3738516DDC18700F25636 /* ACWebScrapingClient.m */,
 				51B3738716DDC33F00F25636 /* ACWebScrapingOperation.h */,
 				51B3738816DDC33F00F25636 /* ACWebScrapingOperation.m */,
+				5120A5FC16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.h */,
+				5120A5FD16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m */,
 				51D0898A16DC742D00826084 /* ACWebScraperQueue.h */,
 				51D0898B16DC742D00826084 /* ACWebScraperQueue.m */,
 				51045E2F16DAF43900A53DB1 /* ACWebScraper.h */,
@@ -343,6 +348,7 @@
 				51D0898C16DC742D00826084 /* ACWebScraperQueue.m in Sources */,
 				51B3738616DDC18700F25636 /* ACWebScrapingClient.m in Sources */,
 				51B3738916DDC33F00F25636 /* ACWebScrapingOperation.m in Sources */,
+				5120A5FE16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

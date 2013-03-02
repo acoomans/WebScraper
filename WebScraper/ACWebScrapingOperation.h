@@ -52,4 +52,14 @@
       evaluations:(NSArray*)evaluations
              done:(void (^)(NSString*result))done;
 
+/** @name Notifications */
+
+/** Notification when an operation starts.
+ */
+extern NSString * const ACWebScrapingOperationDidStartNotification;
+
+/** Notification when an operation finished.
+ */
+extern NSString * const ACWebScrapingOperationDidFinishNotification;
+
 @end
