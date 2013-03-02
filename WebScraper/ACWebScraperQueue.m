@@ -44,7 +44,7 @@
     NSString *l = nil;
     [self.libraries insertObject:@"function loadjs(f){var r=document.createElement('script');r.type='text/javascript';r.src=f;document.getElementsByTagName('head')[0].appendChild(r)};" atIndex:0];
     for (NSString *library in self.libraries) {
-        if ([library hasPrefix:@"http"] || [library hasPrefix:@"file://"]) {
+        if ([library hasPrefix:@"http"]) {
             l = [NSString stringWithFormat:@"loadjs('%@');", library];
         } else {
             l = library;
