@@ -85,6 +85,7 @@
 		51045E3C16DAFAB600A53DB1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		5120A5FC16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingActivityIndicatorManager.h; sourceTree = "<group>"; };
 		5120A5FD16E2B212001FD18E /* ACWebScrapingActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScrapingActivityIndicatorManager.m; sourceTree = "<group>"; };
+		5120A61516E2CC96001FD18E /* ACWebScraping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACWebScraping.h; sourceTree = "<group>"; };
 		51B3738416DDC18700F25636 /* ACWebScrapingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingClient.h; sourceTree = "<group>"; };
 		51B3738516DDC18700F25636 /* ACWebScrapingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACWebScrapingClient.m; sourceTree = "<group>"; };
 		51B3738716DDC33F00F25636 /* ACWebScrapingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACWebScrapingOperation.h; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		51045E2E16DAF41E00A53DB1 /* WebScraper */ = {
 			isa = PBXGroup;
 			children = (
+				5120A61516E2CC96001FD18E /* ACWebScraping.h */,
 				51B3738416DDC18700F25636 /* ACWebScrapingClient.h */,
 				51B3738516DDC18700F25636 /* ACWebScrapingClient.m */,
 				51B3738716DDC33F00F25636 /* ACWebScrapingOperation.h */,

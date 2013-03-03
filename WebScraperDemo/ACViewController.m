@@ -7,7 +7,7 @@
 //
 
 #import "ACViewController.h"
-#import "ACWebScrapingOperation.h"
+#import "ACWebScraping.h"
 
 @interface ACViewController ()
 @property (nonatomic, strong) ACWebScrapingClient *client;
@@ -18,8 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self singleOperation];
-    //[self concurrentOperations];
+    //[self singleOperation];
+    [self concurrentOperations];
 }
 
 

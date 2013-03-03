@@ -8,7 +8,7 @@
 
 #import "ACAppDelegate.h"
 #import "ACViewController.h"
-#import "ACWebScrapingActivityIndicatorManager.h"
+#import "ACWebScraping.h"
 
 @implementation ACAppDelegate
 
