@@ -44,6 +44,10 @@
  */
 @property (nonatomic, strong) NSMutableArray *evaluationsQueue;
 
+/** Stop processing further evaluations if a when condition is never met. Defaults to NO.
+ */
+@property (nonatomic, assign) BOOL stopIfWhenFails;
+
 /** Libraries to be planted in the scraper
  * Can be either:
  * - a _NSString_ containing javascript to be loaded

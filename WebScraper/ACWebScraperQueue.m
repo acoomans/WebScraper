@@ -24,6 +24,7 @@
         self.webScraper.delegate = self;
         self.libraries = [[NSMutableArray alloc] init];
         self.delegate = nil;
+        self.stopIfWhenFails = NO;
     }
     return self;
 }
@@ -96,6 +97,15 @@
 }
 
 - (void)webScraper:(ACWebScraper*)webScraper didNotEvaluate:(NSString*)evaluation when:(NSString*)when {
+    
+    if (self.stopIfWhenFails) {
+        NSLog(@"WebScraperQueue: stopped on when failure");
+        if ([self.delegate respondsToSelector:@selector(webScraperQueue:didEvaluateQueueWithResult:)]) {
+            [self.delegate webScraperQueue:self didEvaluateQueueWithResult:nil];
+        }
+        return;
+    }
+    
     if ([self.evaluationsQueue count]) {
         [self dequeue];
     }
