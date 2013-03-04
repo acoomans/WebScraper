@@ -30,6 +30,11 @@ typedef enum _ACWebScraperState {
 /** _ACWebScraper_ has evaluated the javascript code and return its returned value
  */
 - (void)webScraper:(ACWebScraper*)webScraper didEvaluate:(NSString*)evaluation withResult:(NSString*)result;
+
+/** _ACWebScraper_ has not evaluated the javascript code because the _when_ condition was never met.
+ */
+- (void)webScraper:(ACWebScraper*)webScraper didNotEvaluate:(NSString*)evaluation when:(NSString*)when;
+
 @end
 
 
@@ -46,7 +51,7 @@ typedef enum _ACWebScraperState {
 
 /** The UIWebView used for the web scraping.
  */
-@property (nonatomic, readonly, strong) UIWebView *webview;
+@property (strong) UIWebView *webview;
 
 /** The number of seconds to wait for when to become true (if when is javascript condition) before failing
  */

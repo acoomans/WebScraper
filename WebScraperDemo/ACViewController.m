@@ -18,8 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //[self singleOperation];
-    [self concurrentOperations];
+    [self singleOperation];
+    //[self concurrentOperations];
 }
 
 
@@ -54,10 +54,16 @@
 
 
 - (void)concurrentOperations {
+    
     CGRect frame = self.view.bounds;
-    frame.size.height /= 2;
     
     self.client = [[ACWebScrapingClient alloc] init];
+    self.client.shouldShareWebView = NO;
+    
+    if (!self.client.shouldShareWebView) {
+        frame.size.height /= 2;
+    }
+    
     ACWebScrapingOperation *webScrapingOperation = nil;
     
     webScrapingOperation =
@@ -92,7 +98,7 @@
                         @2
                     ],
                     @[
-                        @"document.getElementsByClassName('body')[0].getElementsByTagName('a')[0].click()",
+                        @"document.getElementsByClassName('tag-bar')[0].getElementsByTagName('a')[1].click()",
                         @2
                     ],
                     @[@"return document.URL", @1]
@@ -102,9 +108,11 @@
                      }];
     
     // let's add the webview to this controller's view so we can see what's happening; only for debugging
-    [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
-    frame.origin.y += frame.size.height;
-    webScrapingOperation.webScraperQueue.webScraper.webview.frame = frame;
+    if (!self.client.shouldShareWebView) {
+        [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
+        frame.origin.y += frame.size.height;
+        webScrapingOperation.webScraperQueue.webScraper.webview.frame = frame;
+    }
 }
 
 @end

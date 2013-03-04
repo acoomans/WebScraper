@@ -33,6 +33,7 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
 {
     self = [super init];
     if (self) {
+        self.delegate = nil;
         
         self.webScraperQueue = [[ACWebScraperQueue alloc] init];
         self.webScraperQueue.delegate = self;
@@ -47,8 +48,21 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
     }
     return self;
 }
+
+
+#pragma mark - 
+
 - (void)start {
+    [super start];
+    
     self.isExecuting = YES;
+    
+    if ([self.delegate respondsToSelector:@selector(webScrapingOperationShouldUseWebView:)]) {
+        UIWebView *webView = [self.delegate webScrapingOperationShouldUseWebView:self];
+        if (webView) {
+            self.webScraperQueue.webScraper.webview = webView;
+        }
+    }
     
     self.webScraperQueue.libraries = [self.libraries mutableCopy];
     self.webScraperQueue.evaluationsQueue = [self.evaluationsQueue mutableCopy];
@@ -65,14 +79,19 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
 #pragma mark - ACWebScraperDelegate
 
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result {
-    self.isExecuting = NO;
-    self.isFinished = YES;
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:ACWebScrapingOperationDidFinishNotification object:self userInfo:nil];
-    
     if (self.done) {
         self.done(result);
     }
+    
+    [self willChangeValueForKey:@"isExecuting"];
+    self.isExecuting = NO;
+    [self didChangeValueForKey:@"isExecuting"];
+    
+    [self willChangeValueForKey:@"isFinished"];
+    self.isFinished = YES;
+    [self didChangeValueForKey:@"isFinished"];
 }
 
 

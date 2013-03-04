@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "ACWebScraperQueue.h"
 
+@class ACWebScrapingOperation;
+
+@protocol ACWebScrapingOperationDelegate <NSObject>
+@optional
+/** Tells the _ACWebScrapingOperation_ what _UIWebView_ to use
+ */
+- (UIWebView*)webScrapingOperationShouldUseWebView:(ACWebScrapingOperation*)webScrapingOperation;
+@end
+
 
 /** _ACWebScrapingOperation_ is a _NSOperation_ executing web scraping using an _ACWebScraperQueue_.
  */
@@ -16,8 +25,12 @@
 
 /** @name Properties */
 
-@property (nonatomic, assign) BOOL isFinished;
-@property (nonatomic, assign) BOOL isExecuting;
+/** A _ACWebScrapingOperationDelegate_ delegate
+ */
+@property (nonatomic, weak) id<ACWebScrapingOperationDelegate> delegate;
+
+@property (assign) BOOL isFinished;
+@property (assign) BOOL isExecuting;
 
 /** An _ACWebScraperQueue_ scraper queue.
  */

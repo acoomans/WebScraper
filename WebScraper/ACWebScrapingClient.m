@@ -9,16 +9,39 @@
 #import "ACWebScrapingClient.h"
 #import "ACWebScrapingOperation.h"
 
+
+@interface ACWebScrapingClient ()
+@property (nonatomic, strong) UIWebView *webview;
+@end
+
 @implementation ACWebScrapingClient
 
 - (id)init {
     self = [super init];
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
-        [self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
+        self.operationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+        self.shouldShareWebView = NO;
+        self.webview = nil;
     }
     return self;
 }
+
+/*
+- (UIWebView*)webview {
+    if (!_webview) {
+        if ([NSThread isMainThread]) {
+            self.webview = [[UIWebView alloc] init];
+        } else {
+            __block __weak ACWebScrapingClient *this = self;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                this.webview = [[UIWebView alloc] init];
+            });
+        }
+    }
+    return _webview;
+}
+*/
 
 - (ACWebScrapingOperation*)scrapURL:(NSURL*)url
        libraries:(NSArray*)libraries
@@ -29,8 +52,27 @@
                                                                                      libraries:libraries
                                                                                    evaluations:evaluations
                                                                                           done:done];
+    
+    webScrapingOperation.delegate = self;
+    if (self.shouldShareWebView && !self.webview) {
+        self.webview = webScrapingOperation.webScraperQueue.webScraper.webview;
+    }
     [self.operationQueue addOperation:webScrapingOperation];
     return webScrapingOperation;
+}
+
+- (void)setShouldShareWebView:(BOOL)shouldShareWebView {
+    _shouldShareWebView = shouldShareWebView;
+    self.operationQueue.maxConcurrentOperationCount = shouldShareWebView ? 1 : NSOperationQueueDefaultMaxConcurrentOperationCount;
+}
+
+#pragma mark - ACWebScrapingOperationDelegate
+
+- (UIWebView*)webScrapingOperationShouldUseWebView:(ACWebScrapingOperation*)webScrapingOperation {
+    if (self.shouldShareWebView) {
+        return self.webview;
+    }
+    return nil;
 }
 
 @end

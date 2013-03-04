@@ -95,4 +95,10 @@
     }
 }
 
+- (void)webScraper:(ACWebScraper*)webScraper didNotEvaluate:(NSString*)evaluation when:(NSString*)when {
+    if ([self.evaluationsQueue count]) {
+        [self dequeue];
+    }
+}
+
 @end

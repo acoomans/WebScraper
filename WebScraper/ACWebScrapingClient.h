@@ -11,9 +11,18 @@
 
 /** _ACWebScrapingClient_ is a client for web scraping.
  */
-@interface ACWebScrapingClient : NSObject
+@interface ACWebScrapingClient : NSObject <ACWebScrapingOperationDelegate>
 
+/** @name Properties */
+
+/** Operation queue
+ */
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+
+/** Should share only one webview among all operations. Defaults to NO. If set to yes, maximum concurrent operations
+ * will be reduced to 1.
+ */
+@property (nonatomic, assign) BOOL shouldShareWebView;
 
 /** @name Scraping operations */
 

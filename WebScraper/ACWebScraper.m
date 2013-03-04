@@ -15,7 +15,6 @@ NSString* const ACEvaluateDomLoadedScript  = @"if (/loaded|complete/.test(docume
 NSInteger const kACWebScraperWhenCountMax = 10;
 
 @interface ACWebScraper ()
-@property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) ACWebScraperState state;
 @property (nonatomic, assign) NSInteger currentWhenCount;
 - (void)evaluateWhen:(NSDictionary*)e;
@@ -24,26 +23,42 @@ NSInteger const kACWebScraperWhenCountMax = 10;
 
 @implementation ACWebScraper
 
+@synthesize webview = _webview;
+
 - (id)init {
     self = [super init];
     if (self) {
-        if ([NSThread isMainThread]) {
-            self.webview = [[UIWebView alloc] init];
-            self.webview.delegate = self;
-        } else {
-            
-            __block __weak ACWebScraper *this = self;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                this.webview = [[UIWebView alloc] init];
-                this.webview.delegate = self;
-            });
-        }
         self.state = ACWebScraperStateNull;
         self.whenCount = kACWebScraperWhenCountMax;
     }
     return self;
 }
 
+#pragma mark - accessors
+
+- (void)setWebview:(UIWebView *)webview {
+    @synchronized(self) {
+        _webview = webview;
+        webview.delegate = self;
+    }
+}
+
+- (UIWebView*)webview {
+    @synchronized(self) {
+        if (!_webview) {
+            if ([NSThread isMainThread]) {
+                _webview = [[UIWebView alloc] init];
+                _webview.delegate = self;
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    _webview = [[UIWebView alloc] init];
+                    _webview.delegate = self;
+                });
+            }
+        }
+    }
+    return _webview;
+}
 
 #pragma mark - 
 
@@ -105,6 +120,9 @@ NSInteger const kACWebScraperWhenCountMax = 10;
                 });
             } else {
                 NSLog(@"WebScraper: waited for too long, stopped. ");
+                if ([self.delegate respondsToSelector:@selector(webScraper:didNotEvaluate:when:)]) {
+                    [self.delegate webScraper:self didNotEvaluate:evaluation when:when];
+                }
             }
         }
     } else if ([when isKindOfClass:[NSNumber class]]) {
