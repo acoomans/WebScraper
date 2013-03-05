@@ -22,14 +22,16 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
     self = [self initWithURL:nil
                    libraries:nil
                  evaluations:nil
-                        done:nil];
+                     success:nil
+                     failure:nil];
     return self;
 }
 
 - (id)initWithURL:(NSURL*)url
         libraries:(NSArray*)libraries
       evaluations:(NSArray*)evaluations
-             done:(void (^)(NSString*result))done
+          success:(void (^)(NSString*result))success
+          failure:(void (^)(NSError **error))failure
 {
     self = [super init];
     if (self) {
@@ -44,7 +46,9 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
         
         self.isExecuting = NO;
         self.isFinished = NO;
-        self.done = done;
+        
+        self.success = success;
+        self.failure = failure;
     }
     return self;
 }
@@ -81,8 +85,8 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result {
 
     [[NSNotificationCenter defaultCenter] postNotificationName:ACWebScrapingOperationDidFinishNotification object:self userInfo:nil];
-    if (self.done) {
-        self.done(result);
+    if (self.success) {
+        self.success(result);
     }
     
     [self willChangeValueForKey:@"isExecuting"];
@@ -92,6 +96,26 @@ NSString * const ACWebScrapingOperationDidFinishNotification = @"ACWebScrapingOp
     [self willChangeValueForKey:@"isFinished"];
     self.isFinished = YES;
     [self didChangeValueForKey:@"isFinished"];
+}
+
+- (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didNotEvaluate:(NSString*)evaluation when:(NSString*)when {
+    if (![self.evaluationsQueue count]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ACWebScrapingOperationDidFinishNotification object:self userInfo:nil];
+        
+        if (self.failure) {
+            NSError *error = [NSError errorWithDomain:@"ACWebScrapingOperationError" code:101 userInfo:nil];
+            self.failure(&error);
+        }
+        
+        [self willChangeValueForKey:@"isExecuting"];
+        self.isExecuting = NO;
+        [self didChangeValueForKey:@"isExecuting"];
+        
+        [self willChangeValueForKey:@"isFinished"];
+        self.isFinished = YES;
+        [self didChangeValueForKey:@"isFinished"];
+    }
 }
 
 

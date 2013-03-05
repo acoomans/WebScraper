@@ -18,6 +18,10 @@
 /** _ACWebScraperQueue_ has evaluated all javascript codes in the queue and returns the return value of the last evaluation.
  */
 - (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didEvaluateQueueWithResult:(NSString*)result;
+
+/** _ACWebScraperQueue_ has not evaluated the javascript code because the _when_ condition was never met.
+ */
+- (void)webScraperQueue:(ACWebScraperQueue*)webScraperQueue didNotEvaluate:(NSString*)evaluation when:(NSString*)when;
 @end
 
 

@@ -50,7 +50,12 @@
 
 /** The block to be called when all evaluations have been evaluated, _result_ is the result of the last evaluation.
  */
-@property (copy) void(^done)(NSString*result);
+@property (copy) void(^success)(NSString*result);
+
+/** The block to be called if an error occured when evaluating.
+ */
+@property (copy) void(^failure)(NSError**error);
+
 
 /** @name Initialization */
 
@@ -63,7 +68,8 @@
 - (id)initWithURL:(NSURL*)url
         libraries:(NSArray*)libraries
       evaluations:(NSArray*)evaluations
-             done:(void (^)(NSString*result))done;
+          success:(void (^)(NSString*result))success
+          failure:(void (^)(NSError **error))failure;
 
 /** @name Notifications */
 

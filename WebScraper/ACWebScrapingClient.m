@@ -44,14 +44,17 @@
 */
 
 - (ACWebScrapingOperation*)scrapURL:(NSURL*)url
-       libraries:(NSArray*)libraries
-     evaluations:(NSArray*)evaluations
-            done:(void (^)(NSString*result))done {
+                          libraries:(NSArray*)libraries
+                        evaluations:(NSArray*)evaluations
+                            success:(void (^)(NSString*result))success
+                            failure:(void (^)(NSError **error))failure
+{
     
     ACWebScrapingOperation *webScrapingOperation = [[ACWebScrapingOperation alloc] initWithURL:url
                                                                                      libraries:libraries
                                                                                    evaluations:evaluations
-                                                                                          done:done];
+                                                                                       success:success
+                                                                                       failure:failure];
     
     webScrapingOperation.delegate = self;
     if (self.shouldShareWebView && !self.webview) {

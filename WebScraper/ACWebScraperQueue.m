@@ -98,11 +98,12 @@
 
 - (void)webScraper:(ACWebScraper*)webScraper didNotEvaluate:(NSString*)evaluation when:(NSString*)when {
     
+    if ([self.delegate respondsToSelector:@selector(webScraperQueue:didNotEvaluate:when:)]) {
+        [self.delegate webScraperQueue:self didNotEvaluate:evaluation when:when];
+    }
+    
     if (self.stopIfWhenFails) {
         NSLog(@"WebScraperQueue: stopped on when failure");
-        if ([self.delegate respondsToSelector:@selector(webScraperQueue:didEvaluateQueueWithResult:)]) {
-            [self.delegate webScraperQueue:self didEvaluateQueueWithResult:nil];
-        }
         return;
     }
     
