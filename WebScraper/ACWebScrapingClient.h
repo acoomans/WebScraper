@@ -24,6 +24,10 @@
  */
 @property (nonatomic, assign) BOOL shouldShareWebView;
 
+/** Stop and skip an operation if one of its when condition fails
+ */
+@property (nonatomic, assign) BOOL skipIfWhenFails;
+
 /** @name Scraping operations */
 
 /** Start scraping

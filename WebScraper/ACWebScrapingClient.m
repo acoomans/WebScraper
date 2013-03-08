@@ -23,6 +23,7 @@
         self.operationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
         self.shouldShareWebView = NO;
         self.webview = nil;
+        self.skipIfWhenFails = NO;
     }
     return self;
 }
@@ -57,9 +58,15 @@
                                                                                        failure:failure];
     
     webScrapingOperation.delegate = self;
+    
+    if (self.skipIfWhenFails) {
+        webScrapingOperation.webScraperQueue.stopIfWhenFails = YES;
+    }
+    
     if (self.shouldShareWebView && !self.webview) {
         self.webview = webScrapingOperation.webScraperQueue.webScraper.webview;
     }
+    
     [self.operationQueue addOperation:webScrapingOperation];
     return webScrapingOperation;
 }
