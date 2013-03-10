@@ -43,9 +43,12 @@
                         @"return ((typeof jQuery != 'undefined') && document.URL.substring(0, 36) == 'http://news.ycombinator.com/item?id=' ? true : false);"
                     ],
                 ]
-                     done:^(NSString *result) {
-                         NSLog(@"hacker news result = %@", result);
-                     }];
+                  success:^(NSString *result) {
+                      NSLog(@"hacker news result = %@", result);
+                  }
+                  failure:^(NSError *__autoreleasing *error) {
+                  }
+     ];
     
     // let's add the webview to this controller's view so we can see what's happening; only for debugging
     [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
@@ -81,9 +84,12 @@
                         @"return ((typeof jQuery != 'undefined') && document.URL.substring(0, 36) == 'http://news.ycombinator.com/item?id=' ? true : false);"
                     ],
                 ]
-                     done:^(NSString *result) {
-                         NSLog(@"hacker news result = %@", result);
-                     }];
+                  success:^(NSString *result) {
+                      NSLog(@"hacker news result = %@", result);
+                  }
+                  failure:^(NSError *__autoreleasing *error) {
+                  }
+     ];
     
     // let's add the webview to this controller's view so we can see what's happening; only for debugging
     [self.view addSubview:webScrapingOperation.webScraperQueue.webScraper.webview];
@@ -103,9 +109,12 @@
                     ],
                     @[@"return document.URL", @1]
                 ]
-                     done:^(NSString *result) {
-                         NSLog(@"slashdot result = %@", result);
-                     }];
+                  success:^(NSString *result) {
+                      NSLog(@"slashdot news result = %@", result);
+                  }
+                  failure:^(NSError *__autoreleasing *error) {
+                  }
+     ];
     
     // let's add the webview to this controller's view so we can see what's happening; only for debugging
     if (!self.client.shouldShareWebView) {
