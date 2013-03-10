@@ -98,6 +98,11 @@
 }
 
 - (void)webScraper:(ACWebScraper*)webScraper didEvaluate:(NSString*)evaluation withResult:(NSString*)result {
+    
+    if ([self.delegate respondsToSelector:@selector(webScraperQueue:didEvaluate:withResult:)]) {
+        [self.delegate webScraperQueue:self didEvaluate:evaluation withResult:result];
+    }
+    
     if (![self.evaluationsQueue count]) {
         [self finishedWithResult:result];
     } else {
