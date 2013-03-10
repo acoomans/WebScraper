@@ -34,6 +34,13 @@ NSInteger const kACWebScraperWhenCountMax = 10;
     return self;
 }
 
+- (void)dealloc {
+    if (self.webview.delegate == self) {
+        self.webview.delegate = nil;
+    }
+    self.webview = nil;
+}
+
 #pragma mark - accessors
 
 - (void)setWebview:(UIWebView *)webview {
